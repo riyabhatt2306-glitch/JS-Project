@@ -1,0 +1,60 @@
+body {
+            background: #dedbd2;
+        }
+
+        body.signup .main-card {
+            animation: slideFromLeft 0.8s ease;
+        }
+
+        body.login .main-card {
+            animation: slideFromRight 0.8s ease;
+        }
+
+        @keyframes slideFromLeft {
+            from {
+                transform: translateX(-120px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideFromRight {
+            from {
+                transform: translateX(120px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .main-card {
+            max-width: 900px;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .left-panel {
+            background: #b0c4b1;
+            color: white;
+        }
+
+        .middle-buttons {
+            position: absolute;
+            left: 38%;
+            top: 43%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .middle-buttons .btn {
+            width: 130px;
+            border-radius: 30px;
+            font-weight: bold;
+        }

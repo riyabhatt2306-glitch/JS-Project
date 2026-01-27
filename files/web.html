@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Simple MCQ Quiz</title>
+    <style>
+        body {
+            background-color: #f7e1d7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial;
+        }
+
+        .box {
+            background-color: #9d8189;
+            padding: 30px;
+            border-radius: 10px;
+            width: 800px;
+            color: white;
+            height: 300px;
+            padding-bottom: 45px;
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        label {
+            background: #7d6270;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        label:hover {
+            background: #6b555d;
+        }
+
+        input {
+            margin-right: 10px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #756068;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <h3 id="question"></h3>
+
+        <div class="options">
+            <label>
+                <input type="radio" name="option" value="1">
+                <span
+                    id="o1"></span><!--empty container,It holds only text,It is inline ,JavaScript can easily change it-->
+            </label>
+
+            <label>
+                <input type="radio" name="option" value="2">
+                <span id="o2"></span>
+            </label>
+
+            <label>
+                <input type="radio" name="option" value="3">
+                <span id="o3"></span>
+            </label>
+
+            <label>
+                <input type="radio" name="option" value="4">
+                <span id="o4"></span>
+            </label>
+        </div>
+
+        <button onclick="nextQuestion()">Next</button>
+    </div>
+
+    <script>
+        let q = 1;
+        let score = 0;
+
+        loadQuestion();
+
+        function loadQuestion() {
+
+            if (q == 1) {
+                question.innerText = "1. What is Web & Mobile Designing?";
+                o1.innerText = "Designing websites and mobile apps";
+                o2.innerText = "Only coding";
+                o3.innerText = "Only graphic design";
+                o4.innerText = "Database management";
+            }
+
+            else if (q == 2) {
+                question.innerText = "2. Which language is used for web design?";
+                o1.innerText = "HTML";
+                o2.innerText = "Python";
+                o3.innerText = "C";
+                o4.innerText = "Java";
+            }
+
+            else if (q == 3) {
+                question.innerText = "3. CSS is used for?";
+                o1.innerText = "Styling web pages";
+                o2.innerText = "Database";
+                o3.innerText = "Logic building";
+                o4.innerText = "Server handling";
+            }
+        }
+
+        function nextQuestion() {
+
+            let options = document.getElementsByName("option");
+            let selected = null;
+
+            // to find selected option
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].checked) {
+                    selected = options[i];
+                    break;
+                }
+            }
+
+            if (selected === null) {
+                alert("Please select an option");
+                return;
+            }
+
+            //every question’s correct answer is the FIRST option.
+            if (q == 1 && selected.value == 1) score++;
+            if (q == 2 && selected.value == 1) score++;
+            if (q == 3 && selected.value == 1) score++;
+
+            // Clears the selected radio button previous question
+            selected.checked = false;
+
+            q++;
+
+            if (q <= 3) {
+                loadQuestion();
+            } else {
+                alert("Quiz Finished! Your Score: " + score + "/3");
+                window.location.href = "result.html";
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
