@@ -1,0 +1,36 @@
+body 
+{
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar 
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #804f5a;
+    background-color:  #f7e1d7;
+    padding: 15px 30px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.div_left a 
+{
+    color:  #804f5a;
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.div_right a 
+{
+    color: #804f5a;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+.div_right a:hover {
+    color: #00c3ff;
+}

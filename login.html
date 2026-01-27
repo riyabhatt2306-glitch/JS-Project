@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quizkrooo - Login</title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="login.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="login" style="background-color: #f7e1d7;">
+
+    <div class="container min-vh-10 d-flex align-items-center justify-content-center" >
+
+        <div class="row main-card shadow-lg  w-100 position-relative" style="margin-top: 100px;" >
+
+            <!-- LEFT -->
+            <div class="col-md-5 left-panel d-flex flex-column justify-content-center align-items-center p-5 text-center"
+                style="background-color: #755a60;">
+                <h2 class="fw-bold">Quizkrooo</h2>
+                <p>Welcome Back</p>
+            </div>
+
+            <!-- CENTER BUTTONS -->
+            <div class="middle-buttons text-center">
+                <a href="sign_up.html" class="btn mb-2 text-white">Sign Up</a><br>
+                <a href="login.html" class="btn" style="background-color: #bf9fa8;">Sign In</a>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="col-md-7 p-3 d-flex align-items-center justify-content-center"
+                style="background-color: #bf9fa8;">
+
+                <div class="card p-4 shadow-sm" style="max-width:450px; width:100% ;background-color: #bf9fa8;">
+                    <h3 class="text-center fw-bold">Quizkrooo Sign In</h3>
+                    <form>
+
+                        <!-- Username -->
+                        <div class="mb-2">
+                            <label>Username</label>
+                            <input type="text" id="username" class="form-control">
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-2">
+                            <label>Email</label>
+                            <input type="email" id="email" class="form-control">
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-2 position-relative">
+                            <label>Password</label>
+                            <input type="password" id="password" class="form-control">
+
+                            <div class="strength bg-secondary mt-2" id="strengthBar"></div>
+                        </div>
+
+                        <!-- Remember Me -->
+                        <div class="mb-2">
+                            <input type="checkbox"> Remember Me
+                            <a href="#" class="float-end" style="color:#150e10;">Forgot Password?</a>
+                        </div>
+
+                        <!-- Login Button -->
+                        <a href="index.html" class="btn  w-100" style="background-color: #755a60;color: aliceblue;">Sign In
+                        </a>
+
+                    </form>
+
+                    <hr>
+
+                    <!-- Social Login -->
+                    <button class="social-btn"><i class="fab fa-google"></i> Continue with Google</button>
+                    <button class="social-btn"><i class="fab fa-facebook"></i> Continue with Facebook</button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
