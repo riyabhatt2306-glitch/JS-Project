@@ -19,7 +19,7 @@
             border-radius: 10px;
             width: 800px;
             color: white;
-            height: 300px;
+            height: 350px;
             padding-bottom: 45px;
         }
 
@@ -55,12 +55,17 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        .h2
+        {
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
 
     <div class="box">
+        <h2 class="h2" id="progress_bar"></h2>
         <h3 id="question"></h3>
 
         <div class="options">
@@ -91,11 +96,16 @@
 
     <script>
         let q = 1;
+        let totalquestion=3;
         let score = 0;
 
         loadQuestion();
 
+
         function loadQuestion() {
+
+            document.getElementById("progress_bar").innerHTML="Questions "+ q + " of 3";
+
 
             if (q == 1) {
                 question.innerText = "1. What is Web & Mobile Designing?";
