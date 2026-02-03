@@ -6,23 +6,50 @@
     <title>Quizkrooo - Sign Up</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-
-        <link href="sign_up.css" rel="stylesheet" type="text/css">
+    <link href="sign_up.css" rel="stylesheet" type="text/css">
 
     <style>
-        
+        /* ===== Preloader ===== */
+        #preloader {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: #f7e1d7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99;
+        }
+
+        .loader {
+            border: 10px solid #ddd;
+            border-top: 10px solid #755a60;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 
-<body class="signup" style="background-color: #f7e1d7;"><!--be95c4-->
+<body class="signup" style="background-color: #f7e1d7;">
 
-    <div class="container min-vh-100 d-flex align-items-center justify-content-center" >
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <div class="container min-vh-100 d-flex align-items-center justify-content-center">
 
         <div class="row main-card shadow-lg bg-white w-100 position-relative">
 
             <!-- LEFT -->
-            <div
-                class="col-md-5 left-panel d-flex flex-column justify-content-center align-items-center p-5 text-center" style="background-color: #755a60;">
+            <div class="col-md-5 left-panel d-flex flex-column justify-content-center align-items-center p-5 text-center" style="background-color: #755a60;">
                 <h2 class="fw-bold">Quizkrooo</h2>
                 <p>Join & start your quiz journey</p>
             </div>
@@ -55,12 +82,26 @@
                         <label>Confirm Password</label>
                         <input type="password" class="form-control">
                     </div>
-                    <a href="index.html" class="btn  w-100" style="background-color: #755a60;color: aliceblue;">Create Account</a>
+                    <a href="index.html" class="btn w-100" style="background-color: #755a60;color: aliceblue;">Create Account</a>
                 </form>
             </div>
 
         </div>
     </div>
+
+    <!-- Preloader Script -->
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const preloader = document.getElementById('preloader');
+                preloader.style.opacity = '0';
+                preloader.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 500);
+            }, 1000); // preloader visible for 1 sec
+        });
+    </script>
 
 </body>
 
