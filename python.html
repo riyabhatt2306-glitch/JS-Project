@@ -226,7 +226,9 @@
                 loadQuestion();
             } else {
                 localStorage.setItem("quizscore", score);
-                localStorage.setItem("totalquestions", 3);
+                localStorage.setItem("totalquestions",totalquestion);
+
+                window.location.href = "result.html";);
 
                 window.location.href = "result.html";
             }
@@ -301,3 +303,4 @@
     });
 </script>
 </html>
+
