@@ -1,150 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Result</title>
-    <link rel="stylesheet" href="navigation.css" type="text/css">
+    <title>Quiz Summary</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <style>
         body {
             background-color: #f7e1d7;
             font-family: Arial, sans-serif;
         }
 
-       
+        .card {
+            background: #9d8189;
+            width: 600px;
+            margin: 150px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
 
-        /* Main container */
-        .main_div {
-            background: linear-gradient(135deg, #9d8189, #836871);
-            border-radius: 15px;
-            width: 100%;
-            height: 500px;
-            max-width: 900px;
-            margin: 60px auto;
-            padding: 40px;
+        h2 {
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+        h3 {
+            color: #ffffff;
+        }
+
+        .sub {
+            color: #ffffff;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        /* progress bar */
+        .progress {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 18px;
+            margin: 10px 0 20px;
+        }
+
+        .progress-fill {
+            background: #785e65;
+            height: 100%;
+            border-radius: 10px;
+            width: 0%;
+        }
+
+        /* summary boxes */
+        .summary {
             display: flex;
-            flex-wrap: wrap;
-            align-items: center;
             justify-content: space-between;
-            gap: 20px;
-            color: #fff;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .side-img {
-            width: 250px;
-            height: 250px;
-            object-fit: contain;
-        }
-
-        .center-content {
-            flex: 1;
-            min-width: 250px;
-            text-align: center;
-        }
-
-        .center-content h2 {
-            margin: 15px 0;
-            font-size: 2rem;
-        }
-
-        .center-content h3 {
-            margin: 10px 0;
-            font-size: 1.3rem;
-            font-weight: normal;
-            color: #f0e6e6;
-        }
-
-        .center-content p {
-            font-weight: bold;
-            margin: 5px 0;
-        }
-
-        /* Buttons */
-        .btn-group {
             margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
         }
 
-        .btn-primary,
-        .btn-secondary {
-            padding: 10px 25px;
-            border: none;
-            font-weight: bold;
-            transition: 0.3s;
+        .box {
+            width: 48%;
+            background: #e0e0e0;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .box h3 {
+            margin: 0;
+            color: #785e65;
+        }
+
+        .time {
+            margin-top: 20px;
+            font-size: 14px;
+            color: white;
         }
 
         .btn {
-            background-color: #836871;
-            color: #fff;
-        }
-
-        .btn:hover {
-            background-color: #9d8189;
-        }
-
-        
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .main_div {
-                flex-direction: column;
-                text-align: center;
-                padding: 30px 20px;
-            }
-
-            .side-img {
-                width: 120px;
-                height: 120px;
-            }
-
-            
+            margin-top: 25px;
+            display: inline-block;
+            padding: 10px 20px;
+            background: #5a434a;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="div_left brand">
-            <a href="index.html">Quizzkaroo</a>
+<div class="card">
+    <h2>Quiz responses</h2>
+    <div class="sub">Your response has been recorded</div>
+
+    <h3 id="scoreText"></h3>
+
+    <!-- Progress bar -->
+    <div class="progress">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary">
+        <div class="box">
+            <p>Correct</p>
+            <h3 id="correct"></h3>
         </div>
-        <div class="div_right">
-            <a href="index.html">Home</a>
-            <a href="quiz.html">Quiz</a>
-            <a href="result.html">Result</a>
-            <a href="login.html" class="btn" style="background-color: #9d8189;">Riya Bhatt ⮟</a>
+        <div class="box">
+            <p>Incorrect</p>
+            <h3 id="wrong"></h3>
         </div>
     </div>
 
-    <!-- Result Card -->
-    <div class="main_div">
-        <img src="Images\boy_result.jpg" class="side-img" alt="Boy celebrating result">
-        <div class="center-content">
-            <h2>Congratulations!! 🎉</h2>
-            <h3>Category: Web Designing</h3>
-            <p>Your Answered</p>
-            <h2>3 / 3</h2>
-            <p>Questions Correct</p>
+    <div class="time" id="timeTaken"></div>
 
-            <div class="btn-group">
-                <a href="index.html" class="btn">Play Again</a>
-                <a href="index.html" class="btn">Back to Home</a>
-            </div>
-        </div>
-        <img src="Images\girl_result.webp" class="side-img" alt="Girl celebrating result">
-    </div>
+    <a href="selection.html" class="btn">Submit another response</a>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+<script>
+    let score = Number(localStorage.getItem("quizscore"));
+    let total = Number(localStorage.getItem("totalquestions"));
+    let startTime = localStorage.getItem("startTime");
+
+    let percentage = Math.round((score / total) * 100);
+
+    // score text
+    document.getElementById("scoreText").innerText =
+        "Score: " + score + " / " + total;
+
+    // progress bar
+    document.getElementById("progressFill").style.width = percentage + "%";
+
+    // correct / wrong
+    document.getElementById("correct").innerText = score;
+    document.getElementById("wrong").innerText = total - score;
+
+    // time taken
+    let seconds = Math.floor((Date.now() - startTime) / 1000);
+    document.getElementById("timeTaken").innerText =
+        "Time taken: " + seconds + " seconds";
+
+    // clear storage
+    localStorage.clear();
+</script>
+
 </body>
-
 </html>
