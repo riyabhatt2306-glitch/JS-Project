@@ -225,11 +225,7 @@
             if (q <= 3) {
                 loadQuestion();
             } else {
-                localStorage.setItem("quizscore", score);
-                localStorage.setItem("totalquestions",totalquestion);
-
-                window.location.href = "result.html";);
-
+                alert("Quiz Finished! Your Score: " + score + "/3");
                 window.location.href = "result.html";
             }
 
@@ -269,7 +265,9 @@
             if (answers[2] == 1) score++;
             if (answers[3] == 1) score++;
 
-            alert("Quiz Finished! Your Score: " + score + "/" + totalquestion);
+            localStorage.setItem("quizscore", score);
+            localStorage.setItem("totalquestions", 3);
+
             window.location.href = "result.html";
         }
 
@@ -283,12 +281,7 @@
                 }
             }
         }
-
-
-
-
     </script>
-
 </body>
 <script>
     window.addEventListener('load', () => {
