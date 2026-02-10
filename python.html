@@ -225,7 +225,9 @@
             if (q <= 3) {
                 loadQuestion();
             } else {
-                alert("Quiz Finished! Your Score: " + score + "/3");
+                localStorage.setItem("quizscore", score);
+                localStorage.setItem("totalquestions", 3);
+
                 window.location.href = "result.html";
             }
 
