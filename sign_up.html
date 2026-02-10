@@ -4,46 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Quizkrooo - Sign Up</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="sign_up.css" rel="stylesheet" type="text/css">
-
     <style>
-        /* ===== Preloader ===== */
-        #preloader {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background-color: #f7e1d7;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 99;
+        .main-card
+        {
+            position: relative;
         }
+        .middle-buttons {
+    pointer-events: none;
+}
+.middle-buttons a {
+    pointer-events: auto;
+}
 
-        .loader {
-            border: 10px solid #ddd;
-            border-top: 10px solid #755a60;
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        
     </style>
 </head>
 
 <body class="signup" style="background-color: #f7e1d7;">
 
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="loader"></div>
-    </div>
+    
 
     <div class="container min-vh-100 d-flex align-items-center justify-content-center">
 
@@ -56,9 +38,9 @@
             </div>
 
             <!-- CENTER BUTTONS -->
-            <div class="middle-buttons text-center">
+            <div class="middle-buttons text-center ">
                 <a href="sign_up.html" class="btn mb-2" style="background:#bf9fa8;">Sign Up</a><br>
-                <a href="login.html" class="btn text-white">Sign In</a>
+                <a href="login.html" class="btn text-white">Log In</a>
             </div>
 
             <!-- RIGHT -->
@@ -66,43 +48,74 @@
                 <h3 class="fw-bold">Create Account</h3>
                 <p class="text-muted">Register to play quizzes</p>
 
-                <form>
+                <form onsubmit="return to_validateform()">
                     <div class="mb-3">
                         <label>Username</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="username">
                     </div>
                     <div class="mb-3">
                         <label>Email</label>
-                        <input type="email" class="form-control">
+                        <input type="text" class="form-control" id="emailid">
                     </div>
                     <div class="mb-3">
                         <label>Password</label>
-                        <input type="password" class="form-control">
+                        <input type="password" class="form-control" id="pwd">
                     </div>
                     <div class="mb-3">
                         <label>Confirm Password</label>
-                        <input type="password" class="form-control">
+                        <input type="password" class="form-control" id="cpwd">
                     </div>
-                    <a href="index.html" class="btn w-100" style="background-color: #755a60;color: aliceblue;">Create Account</a>
+                    <button type="submit" class="btn w-100" style="background-color:#755a60;color:white;">
+                        Create Account
+                    </button>
+                    <h6 style="margin-left: 100px;margin-top: 9px;">Already have an account ? <a href="login.html">Login</a></h6>
                 </form>
             </div>
 
         </div>
     </div>
-
-    <!-- Preloader Script -->
     <script>
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const preloader = document.getElementById('preloader');
-                preloader.style.opacity = '0';
-                preloader.style.transition = 'opacity 0.5s ease';
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                }, 500);
-            }, 1500); // preloader visible for 1 sec
-        });
-    </script>
+        function to_validateform() {
+        
+            let username = document.getElementById("username").value.trim();
+            let emailid = document.getElementById("emailid").value.trim();
+            let pwd = document.getElementById("pwd").value.trim();
+            let cpwd = document.getElementById("cpwd").value.trim();
+        
+            // Username validation
+            if (username === "") {
+                alert("Username is required !!");
+                return false;
+            }
+        
+            // Email validation
+            if (!emailid.includes("@") || !emailid.includes(".")) {
+                alert("Invalid email format");
+                return false;
+            }
+        
+            // Password validation
+            if (pwd.length < 6) {
+                alert("Password must be at least 6 characters long.");
+                return false;
+            }
+        
+            // Confirm password validation
+            if (pwd !== cpwd) {
+                alert("Password and Confirm password do not match.");
+                return false;
+            }
+        
+            alert("Account created successfully !!");
+            window.location.href = "index.html";
+            return false;
+        }
+        </script>
+        
+
+    
+        
+        
 
 </body>
 
