@@ -26,8 +26,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         body {
@@ -143,26 +148,26 @@
 
             if (q == 1) {
                 question.innerText = "1. What is Java?";
-            o1.innerText = "A programming language";
-            o2.innerText = "An operating system";
-            o3.innerText = "A database";
-            o4.innerText = "A web browser";
-        }
+                o1.innerText = "A programming language";
+                o2.innerText = "An operating system";
+                o3.innerText = "A database";
+                o4.innerText = "A web browser";
+            }
 
-        else if (q == 2) {
-            question.innerText = "2. Which keyword is used to create an object in Java?";
-            o1.innerText = "new";
-            o2.innerText = "create";
-            o3.innerText = "object";
-            o4.innerText = "class";
-        }
+            else if (q == 2) {
+                question.innerText = "2. Which keyword is used to create an object in Java?";
+                o1.innerText = "new";
+                o2.innerText = "create";
+                o3.innerText = "object";
+                o4.innerText = "class";
+            }
 
-        else if (q == 3) {
-            question.innerText = "3. Which method is used to start program execution in Java?";
-            o1.innerText = "main()";
-            o2.innerText = "start()";
-            o3.innerText = "run()";
-            o4.innerText = "execute()";
+            else if (q == 3) {
+                question.innerText = "3. Which method is used to start program execution in Java?";
+                o1.innerText = "main()";
+                o2.innerText = "start()";
+                o3.innerText = "run()";
+                o4.innerText = "execute()";
             }
 
             change_button();
@@ -225,7 +230,9 @@
             if (q <= 3) {
                 loadQuestion();
             } else {
-                alert("Quiz Finished! Your Score: " + score + "/3");
+                localStorage.setItem("quizscore", score);
+                localStorage.setItem("totalquestions", 3);
+
                 window.location.href = "result.html";
             }
 
@@ -298,4 +305,5 @@
         }, 1000); // preloader visible for 1 sec
     });
 </script>
+
 </html>
