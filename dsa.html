@@ -26,8 +26,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         body {
@@ -143,26 +148,26 @@
 
             if (q == 1) {
                 question.innerText = "1. What is Data Structure?";
-            o1.innerText = "A way to store and organize data";
-            o2.innerText = "A programming language";
-            o3.innerText = "A computer hardware";
-            o4.innerText = "An operating system";
-        }
+                o1.innerText = "A way to store and organize data";
+                o2.innerText = "A programming language";
+                o3.innerText = "A computer hardware";
+                o4.innerText = "An operating system";
+            }
 
             else if (q == 2) {
                 question.innerText = "2. Which data structure works on LIFO principle?";
-            o1.innerText = "Stack";
-            o2.innerText = "Queue";
-            o3.innerText = "Array";
-            o4.innerText = "Linked List";
-        }
+                o1.innerText = "Stack";
+                o2.innerText = "Queue";
+                o3.innerText = "Array";
+                o4.innerText = "Linked List";
+            }
 
             else if (q == 3) {
                 question.innerText = "3. 3. Which data structure works on FIFO principle?";
-            o1.innerText = "Queue";
-            o2.innerText = "Stack";
-            o3.innerText = "Tree";
-            o4.innerText = "Graph";
+                o1.innerText = "Queue";
+                o2.innerText = "Stack";
+                o3.innerText = "Tree";
+                o4.innerText = "Graph";
             }
 
             change_button();
@@ -225,7 +230,9 @@
             if (q <= 3) {
                 loadQuestion();
             } else {
-                alert("Quiz Finished! Your Score: " + score + "/3");
+                localStorage.setItem("quizscore", score);
+                localStorage.setItem("totalquestions", 3);
+
                 window.location.href = "result.html";
             }
 
@@ -298,4 +305,5 @@
         }, 1000); // preloader visible for 1 sec
     });
 </script>
+
 </html>
