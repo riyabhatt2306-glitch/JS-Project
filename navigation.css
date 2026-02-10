@@ -13,7 +13,23 @@ body
     background-color:  #f7e1d7;
     padding: 15px 30px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-decoration: none;
+
 }
+.custom-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #804f5a;
+    background-color: #f7e1d7;
+    padding: 15px 30px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+}
+
 
 .div_left a 
 {
@@ -32,5 +48,5 @@ body
 }
 
 .div_right a:hover {
-    color: #00c3ff;
+    color: #774f58;
 }
