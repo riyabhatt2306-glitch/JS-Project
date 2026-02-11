@@ -225,7 +225,9 @@
             if (q <= 3) {
                 loadQuestion();
             } else {
-                alert("Quiz Finished! Your Score: " + score + "/3");
+                localStorage.setItem("quizscore", score);
+                localStorage.setItem("totalquestions", totalquestion);
+
                 window.location.href = "result.html";
             }
 
@@ -266,9 +268,9 @@
             if (answers[3] == 1) score++;
 
             localStorage.setItem("quizscore", score);
-            localStorage.setItem("totalquestions", 3);
+                localStorage.setItem("totalquestions", 3);
 
-            window.location.href = "result.html";
+                window.location.href = "result.html";
         }
 
         function saveAnswer() {
@@ -281,7 +283,12 @@
                 }
             }
         }
+
+
+
+
     </script>
+
 </body>
 <script>
     window.addEventListener('load', () => {
@@ -296,4 +303,3 @@
     });
 </script>
 </html>
-
