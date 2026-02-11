@@ -272,8 +272,10 @@
             if (answers[2] == 1) score++;
             if (answers[3] == 1) score++;
 
-            alert("Quiz Finished! Your Score: " + score + "/" + totalquestion);
-            window.location.href = "result.html";
+            localStorage.setItem("quizscore", score);
+                localStorage.setItem("totalquestions", 3);
+
+                window.location.href = "result.html";
         }
 
         function saveAnswer() {
