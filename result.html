@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Quiz Summary</title>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
             background-color: #f7e1d7;
             font-family: Arial, sans-serif;
-            text-align:center;
         }
 
         .card {
             background: #9d8189;
             width: 600px;
-            margin: 150px auto;
+            margin: 40px auto;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         h2 {
             margin-bottom: 5px;
             color: #ffffff;
         }
+
         h3 {
             color: #ffffff;
         }
@@ -34,19 +35,31 @@
             margin-bottom: 25px;
         }
 
-        /* progress bar */
-        .progress {
-            background: #e0e0e0;
-            border-radius: 10px;
-            height: 18px;
-            margin: 10px 0 20px;
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .progress-fill {
+        .progress {
+            background: #ddd;
+            height: 12px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .fill {
             background: #785e65;
             height: 100%;
-            border-radius: 10px;
             width: 0%;
+            border-radius: 10px;
+            transition: width 1s ease;
         }
 
         /* summary boxes */
@@ -86,66 +99,142 @@
             text-decoration: none;
             border-radius: 6px;
         }
+
+        .color_white {
+            color: #ffffff;
+        }
+
+        .btn-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
     </style>
 </head>
 
 <body>
 
-<div class="card">
-    <h2>Quiz responses</h2>
-    <div class="sub">Your response has been recorded</div>
+    <div class="card">
+        <h2>Quiz responses</h2>
+        <div class="sub">Your response has been recorded</div>
 
-    <h3 id="scoreText"></h3>
+        <h3 id="scoreText"></h3>
 
-    <!-- Progress bar -->
-    <div class="progress">
-        <div class="progress-fill" id="progressFill"></div>
-    </div>
-
-    <!-- Summary -->
-    <div class="summary">
-        <div class="box">
-            <p>Correct</p>
-            <h3 id="correct"></h3>
+        <div class="progress">
+            <div class="fill" id="fill"></div>
         </div>
-        <div class="box">
-            <p>Incorrect</p>
-            <h3 id="wrong"></h3>
+
+
+
+        <!-- Summary -->
+        <div class="summary">
+            <div class="box">
+                <p>Correct</p>
+                <h3 id="correct"></h3>
+            </div>
+            <div class="box">
+                <p>Incorrect</p>
+                <h3 id="wrong"></h3>
+            </div>
         </div>
+
+
+
+        <p id="attemptedText" class="color_white"></p>
+        <p id="percentageText" class="color_white"></p>
+        <p id="timeText" class="color_white"></p>
+
+        <!-- Buttons Row -->
+        <div class="btn-row">
+            <a onclick="checkans()" class="btn">Answer Review</a>
+            <a href="index.html" class="btn">Back to home</a>
+            <a href="selection.html" class="btn">Submit another response</a>
+        </div><br>
+        <div id="review" class="color_white"></div>
+
     </div>
+    <script>
+        $(document).ready(function () {
+            let score = Number(localStorage.getItem("quizscore"));
+            let total = Number(localStorage.getItem("totalquestions"));
+            let attempted = Number(localStorage.getItem("attempted"));
+            let percentage = Number(localStorage.getItem("percentage"));
 
-    <div class="time" id="timeTaken"></div>
+            //review button animation
+            $(".card").hide().slideDown(800);
 
-    <a href="selection.html" class="btn">Submit another response</a>
-    <a href="index.html" class="btn" style="float:right">Back to home</a>
-</div>
+            document.getElementById("scoreText").innerText =
+                "Score: " + score + " / " + total;
 
-<script>
-    let score = Number(localStorage.getItem("quizscore"));
-    let total = Number(localStorage.getItem("totalquestions"));
-    let startTime = localStorage.getItem("startTime");
+            document.getElementById("fill").style.width = percentage + "%";
 
-    let percentage = Math.round((score / total) * 100);
+            document.getElementById("correct").innerText = score;
+            document.getElementById("wrong").innerText = total - score;
 
-    // score text
-    document.getElementById("scoreText").innerText =
-        "Score: " + score + " / " + total;
+            document.getElementById("attemptedText").innerText =
+                "Attempted: " + attempted;
 
-    // progress bar
-    document.getElementById("progressFill").style.width = percentage + "%";
+            document.getElementById("percentageText").innerText =
+                "Percentage: " + percentage + "%";
 
-    // correct / wrong
-    document.getElementById("correct").innerText = score;
-    document.getElementById("wrong").innerText = total - score;
+            document.getElementById("timeText").innerText = "Time Taken: 30 seconds";
+            setTimeout(() => {
+                document.getElementById("fill").style.width = percentage + "%";
+            }, 300);
+            $(".btn").hover(
+                function () {
+                    $(this).css("box-shadow", "0 0 10px #fff");
+                },
+                function () {
+                    $(this).css("box-shadow", "none");
+                }
+            );
 
-    // time taken
-    let seconds = Math.floor((Date.now() - startTime) / 1000);
-    document.getElementById("timeTaken").innerText =
-        "Time taken: " + seconds + " seconds";
+        });
+        function checkans() {
+            let total = Number(localStorage.getItem("totalquestions"));
 
-    // clear storage
-    localStorage.clear();
-</script>
+            let reviewText = "";
+
+            for (let i = 1; i <= total; i++) {
+
+                let question = localStorage.getItem("question" + i);
+                let userAns = localStorage.getItem("userAnswer" + i);
+                let correctAns = localStorage.getItem("correctAnswer" + i);
+
+                let op1 = localStorage.getItem("option1_" + i);
+                let op2 = localStorage.getItem("option2_" + i);
+                let op3 = localStorage.getItem("option3_" + i);
+                let op4 = localStorage.getItem("option4_" + i);
+
+                reviewText += "<br><b>Q" + i + ": " + question + "</b><br>";
+
+                reviewText += "1) " + (op1 || "Not available") + "<br>";
+                reviewText += "2) " + (op2 || "Not available") + "<br>";
+                reviewText += "3) " + (op3 || "Not available") + "<br>";
+                reviewText += "4) " + (op4 || "Not available") + "<br><br>";
+
+                if (!userAns || userAns === "") {
+                    reviewText += "Your Answer: Not Attempted<br>";
+                } else {
+                    reviewText += "Your Answer: Option " + userAns + "<br>";
+                }
+
+                reviewText += "Correct Answer: Option " + correctAns + "<br>";
+
+                if (userAns == correctAns) {
+                    reviewText += "<span style='color:lightgreen;'>✔ Correct</span><br>";
+                } else {
+                    reviewText += "<span style='color:red;'>✘ Wrong</span><br>";
+                }
+
+                reviewText += "<hr>";
+            }
+
+            $("#review").hide().html(reviewText).slideDown(500);
+        }
+    </script>
 
 </body>
+
 </html>
