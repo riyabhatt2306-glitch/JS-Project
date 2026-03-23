@@ -30,6 +30,16 @@
             img {
                 display: none;
             }
+
+            .section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .text-block {
+                margin-left: 0;
+                padding: 20px;
+            }
         }
 
 
@@ -117,6 +127,14 @@
         .review-box h4 {
             color: #9d8189;
         }
+
+        .fixed-hr {
+            position: fixed;
+            width: 100%;
+            height: 1px;
+            background-color: #472f34;
+            border: none;
+        }
     </style>
 </head>
 
@@ -135,8 +153,7 @@
 
         </div>
     </div>
-    <hr style="height:1px; background-color:#472f34; border:none;">
-
+    <hr class="fixed-hr">
     <div class="section">
 
         <div class="text-block">
@@ -155,7 +172,7 @@
 
         </div>
 
-        <img src="Images\home_img.webp" alt="Home Image">
+        <img src="home_img.webp" alt="Home Image">
 
     </div>
     <!--publication-->
