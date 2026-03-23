@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html>
 
 <head>
     <title>Simple MCQ Quiz</title>
@@ -50,11 +49,12 @@
             border-radius: 10px;
             width: 800px;
             color: white;
-            height: 350px;
+            height: 385px;
             padding-bottom: 45px;
+
         }
 
-        .options {
+        .choices {
             display: grid;
             gap: 15px;
             margin-top: 20px;
@@ -90,8 +90,13 @@
         .h2 {
             text-align: center;
         }
+
+        #timeleft {
+            margin-left: 650px;
+        }
     </style>
 </head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <body>
     <!-- Preloader -->
@@ -99,201 +104,299 @@
         <div class="loader"></div>
     </div>
 
-    <div class="box">
+    <div class="box" id="quizBox">
         <h2 class="h2" id="progress_bar"></h2>
+        <h3 id="timeleft">Time left:100s</h3>
         <h3 id="question"></h3>
 
-        <div class="options">
+        <div class="choices">
             <label>
                 <input type="radio" name="option" value="1">
                 <span
-                    id="o1"></span><!--empty container,It holds only text,It is inline ,JavaScript can easily change it-->
+                    id="opt_1"></span><!--empty container,It holds only text,It is inline ,JavaScript can easily change it-->
             </label>
 
             <label>
                 <input type="radio" name="option" value="2">
-                <span id="o2"></span>
+                <span id="opt_2"></span>
             </label>
 
             <label>
                 <input type="radio" name="option" value="3">
-                <span id="o3"></span>
+                <span id="opt_3"></span>
             </label>
 
             <label>
                 <input type="radio" name="option" value="4">
-                <span id="o4"></span>
+                <span id="opt_4"></span>
             </label>
         </div>
 
-        <button id="prebutton" onclick="previousQuestion()">Previous</button>
-        <button id="nextbutton" onclick="nextQuestion()">Next</button>
-        <button id="submitbutton" onclick="submitbutton()" style="display:none;">Submit</button>
+        <button id="prebutton" onclick="pre_question()">Previous</button>
+        <button id="nextbutton" onclick="next_question()">Next</button>
+        <button id="finishQuiz" onclick="finishQuiz()" style="display:none;">Submit</button>
 
     </div>
 
     <script>
-        let q = 1;
-        let totalquestion = 3;
-        let score = 0;
-        let answers = {};//Object {} matches question numbers directly.
+        let current_qno = 1;
 
-        loadQuestion();
+        let total_marks = 0;
+        let user_ans = {};//Object {} matches question numbers directly.
+        let all_Questions = [
 
+            {
+                question: "What is a data structure?",
+                choices: ["Way to store data", "Programming language", "Database", "OS"],
+                answer: "1"
+            },
 
-        function loadQuestion() {
+            {
+                question: "Which data structure uses FIFO?",
+                choices: ["Stack", "Queue", "Tree", "Graph"],
+                answer: "2"
+            },
 
-            document.getElementById("progress_bar").innerHTML = "Questions " + q + " of 3";
+            {
+                question: "Which data structure uses LIFO?",
+                choices: ["Queue", "Array", "Stack", "Linked List"],
+                answer: "3"
+            },
 
+            {
+                question: "Which structure uses nodes and pointers?",
+                choices: ["Array", "Linked List", "Stack", "Queue"],
+                answer: "2"
+            },
 
-            if (q == 1) {
-                question.innerText = "1. What is Data Structure?";
-                o1.innerText = "A way to store and organize data";
-                o2.innerText = "A programming language";
-                o3.innerText = "A computer hardware";
-                o4.innerText = "An operating system";
+            {
+                question: "Which data structure is used in recursion?",
+                choices: ["Queue", "Stack", "Array", "Graph"],
+                answer: "2"
+            },
+
+            {
+                question: "Which is non-linear data structure?",
+                choices: ["Array", "Stack", "Tree", "Queue"],
+                answer: "3"
+            },
+
+            {
+                question: "Which operation removes element from stack?",
+                choices: ["Push", "Pop", "Insert", "Delete"],
+                answer: "2"
+            },
+
+            {
+                question: "Which operation adds element in queue?",
+                choices: ["Push", "Pop", "Enqueue", "Dequeue"],
+                answer: "3"
+            },
+
+            {
+                question: "Which data structure stores elements in contiguous memory?",
+                choices: ["Linked List", "Array", "Tree", "Graph"],
+                answer: "2"
+            },
+
+            {
+                question: "Which structure is used to represent hierarchy?",
+                choices: ["Array", "Stack", "Tree", "Queue"],
+                answer: "3"
             }
 
-            else if (q == 2) {
-                question.innerText = "2. Which data structure works on LIFO principle?";
-                o1.innerText = "Stack";
-                o2.innerText = "Queue";
-                o3.innerText = "Array";
-                o4.innerText = "Linked List";
+        ];
+        let totalquestion = all_Questions.length;
+        let questionText = document.getElementById("question");
+        let opt_1 = document.getElementById("opt_1");
+        let opt_2 = document.getElementById("opt_2");
+        let opt_3 = document.getElementById("opt_3");
+        let opt_4 = document.getElementById("opt_4");
+        let timer_text = document.getElementById("timeleft");
+
+        let timeleft = 100;
+        load_question();
+        startTimer();
+
+        function startTimer() {
+            timer_text.innerText = "Time Left :" + timeleft + "s";
+
+            timeleft--;
+
+            if (timeleft >= 0) {
+                setTimeout(startTimer, 1000);
             }
-
-            else if (q == 3) {
-                question.innerText = "3. 3. Which data structure works on FIFO principle?";
-                o1.innerText = "Queue";
-                o2.innerText = "Stack";
-                o3.innerText = "Tree";
-                o4.innerText = "Graph";
-            }
-
-            change_button();
-
-            let options = document.getElementsByName("option");
-
-            // clear all selections
-            options.forEach(element => {
-                element.checked = false;
-            });
-
-            // restore previous answer
-            if (answers[q]) {
-                options.forEach(element => {
-                    if (element.value == answers[q]) {
-                        element.checked = true;
-                    }
-                });
+            else {
+                alert("Time is up!");
+                finishQuiz();
             }
 
         }
 
-        function change_button() {
-            document.getElementById("prebutton").disabled = (q === 1);
 
-            if (q === totalquestion) {
+        function load_question() {
+
+            $("#quizBox").fadeOut(400, function () {
+
+                document.getElementById("progress_bar").innerHTML = "question " + current_qno + " of " + totalquestion;
+
+                let currentQ = all_Questions[current_qno - 1];
+
+                questionText.innerText = "Q" + current_qno + ": " + currentQ.question;
+
+                opt_1.innerText = currentQ.choices[0];
+                opt_2.innerText = currentQ.choices[1];
+                opt_3.innerText = currentQ.choices[2];
+                opt_4.innerText = currentQ.choices[3];
+                $("#quizBox").fadeIn(400);
+
+            });
+
+            let choices = document.getElementsByName("option");
+
+            for (let i = 0; i < choices.length; i++) {
+                choices[i].checked = false;
+            }
+
+            if (user_ans[current_qno]) {
+                for (let i = 0; i < choices.length; i++) {
+                    if (choices[i].value == user_ans[current_qno]) {
+                        choices[i].checked = true;
+                    }
+                }
+
+            }
+
+            updateButtons();
+        }
+
+        function updateButtons() {
+            document.getElementById("prebutton").disabled = (current_qno === 1);
+
+            if (current_qno === totalquestion) {
                 document.getElementById("nextbutton").style.display = "none";
-                document.getElementById("submitbutton").style.display = "inline-block";
+                document.getElementById("finishQuiz").style.display = "inline-block";
             }
             else {
                 document.getElementById("nextbutton").style.display = "inline-block";
-                document.getElementById("submitbutton").style.display = "none";
+                document.getElementById("finishQuiz").style.display = "none";
             }
         }
 
-        function nextQuestion() {
+        function next_question() {
 
-            let options = document.getElementsByName("option");
+            let choices = document.getElementsByName("option");
             let selected = null;
 
             // to find selected option
-            for (let i = 0; i < options.length; i++) {
-                if (options[i].checked) {
-                    selected = options[i];
+            for (let i = 0; i < choices.length; i++) {
+                if (choices[i].checked) {
+                    selected = choices[i];
                     break;
                 }
             }
 
-            saveAnswer();
+            storeAnswer();
+
+
 
             if (selected === null) {
                 alert("Please select an option");
                 return;
             }
 
-            answers[q] = selected.value;   // save answer
+            //user_ans[current_qno] = selected.value;   // save answer
 
-            q++;
+            current_qno++;
 
-            if (q <= 3) {
-                loadQuestion();
+            if (current_qno <= totalquestion) {
+                load_question();
             } else {
-                localStorage.setItem("quizscore", score);
-                localStorage.setItem("totalquestions", 3);
-
-                window.location.href = "result.html";
+                alert("Quiz Finished! Your Score: " + total_marks + "/" + totalquestion);
+                finishQuiz();
             }
 
-            change_button();
+            updateButtons();
         }
 
-        function previousQuestion() {
-            saveAnswer();
-            q--;
-            loadQuestion();
+        function pre_question() {
+            storeAnswer();
+            if (current_qno > 1) {
+                current_qno--;
+                load_question();
+            }
 
         }
 
-        function submitbutton() {
+        function finishQuiz() {
+            localStorage.clear();
+            storeAnswer();
 
-            let options = document.getElementsByName("option");
+            let attempted = 0;
+            total_marks = 0;
+
+            // correct answers
+            let correctAnswers = {};
+
+            all_Questions.forEach((item, index) => {
+                correctAnswers[index + 1] = item.answer;
+            });
+
+            for (let i = 1; i <= totalquestion; i++) {
+
+                // store each answer separately
+                let qData = all_Questions[i - 1];
+
+                localStorage.setItem("question" + i, qData.question);
+                localStorage.setItem("option1_" + i, qData.choices[0]);
+                localStorage.setItem("option2_" + i, qData.choices[1]);
+                localStorage.setItem("option3_" + i, qData.choices[2] || "N/A");
+                localStorage.setItem("option4_" + i, qData.choices[3]);
+                //localStorage.setItem("userAnswer" + i, user_ans[i]);
+                localStorage.setItem("correctAnswer" + i, correctAnswers[i]);
+
+                if (user_ans[i]) {
+                    attempted++;
+
+                    if (user_ans[i] == correctAnswers[i]) {
+                        total_marks++;
+                    }
+
+                    localStorage.setItem("userAnswer" + i, user_ans[i]);
+                } else {
+                    localStorage.setItem("userAnswer" + i, "");
+                }
+            }
+
+
+            let percentage = Math.round((total_marks / totalquestion) * 100);
+
+            localStorage.setItem("quizscore", total_marks);
+            localStorage.setItem("totalquestions", totalquestion);
+            localStorage.setItem("attempted", attempted);
+            localStorage.setItem("percentage", percentage);
+
+            window.location.href = "result.html";
+        }
+
+        function storeAnswer() {
+            let choices = document.getElementsByName("option");
             let selected = null;
 
-            // find selected option
-            for (let i = 0; i < options.length; i++) {
-                if (options[i].checked) {
-                    selected = options[i];
+            for (let i = 0; i < choices.length; i++) {
+                if (choices[i].checked) {
+                    selected = choices[i].value;
                     break;
                 }
             }
 
-            if (selected === null) {
-                alert("Please select an option");
-                return;
-            }
-
-            // save last answer
-            answers[q] = selected.value;
-
-            score = 0;
-            if (answers[1] == 1) score++;
-            if (answers[2] == 1) score++;
-            if (answers[3] == 1) score++;
-
-            localStorage.setItem("quizscore", score);
-                localStorage.setItem("totalquestions", 3);
-
-                window.location.href = "result.html";
-        }
-
-        function saveAnswer() {
-            let options = document.getElementsByName("option");
-
-            for (let i = 0; i < options.length; i++) {
-                if (options[i].checked) {
-                    answers[q] = options[i].value;
-                    return;
-                }
+            if (selected) {
+                user_ans[current_qno] = selected;
+            } else {
+                user_ans[current_qno] = "";
             }
         }
-
-
-
-
     </script>
-
 </body>
 <script>
     window.addEventListener('load', () => {
