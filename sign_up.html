@@ -7,32 +7,33 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="sign_up.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        .main-card
-        {
+        .main-card {
             position: relative;
         }
-        .middle-buttons {
-    pointer-events: none;
-}
-.middle-buttons a {
-    pointer-events: auto;
-}
 
-        
+        .middle-buttons {
+            pointer-events: none;
+        }
+
+        .middle-buttons a {
+            pointer-events: auto;
+        }
     </style>
 </head>
 
 <body class="signup" style="background-color: #f7e1d7;">
 
-    
+
 
     <div class="container min-vh-100 d-flex align-items-center justify-content-center">
 
         <div class="row main-card shadow-lg bg-white w-100 position-relative">
 
             <!-- LEFT -->
-            <div class="col-md-5 left-panel d-flex flex-column justify-content-center align-items-center p-5 text-center" style="background-color: #755a60;">
+            <div class="col-md-5 left-panel d-flex flex-column justify-content-center align-items-center p-5 text-center"
+                style="background-color: #755a60;">
                 <h2 class="fw-bold">Quizkrooo</h2>
                 <p>Join & start your quiz journey</p>
             </div>
@@ -68,54 +69,64 @@
                     <button type="submit" class="btn w-100" style="background-color:#755a60;color:white;">
                         Create Account
                     </button>
-                    <h6 style="margin-left: 100px;margin-top: 9px;">Already have an account ? <a href="login.html">Login</a></h6>
+                    <h6 style="margin-left: 100px;margin-top: 9px;">Already have an account ? <a
+                            href="login.html">Login</a></h6>
                 </form>
             </div>
 
         </div>
     </div>
     <script>
+        $("input").focus(function () {
+            $(this).css("background-color", "#fff3cd");
+        });
+
+        $("input").blur(function () {
+            $(this).css("background-color", "white");
+        });
+    </script>
+    <script>
         function to_validateform() {
-        
+
             let username = document.getElementById("username").value.trim();
             let emailid = document.getElementById("emailid").value.trim();
             let pwd = document.getElementById("pwd").value.trim();
             let cpwd = document.getElementById("cpwd").value.trim();
-        
+
             // Username validation
             if (username === "") {
                 alert("Username is required !!");
                 return false;
             }
-        
+
             // Email validation
             if (!emailid.includes("@") || !emailid.includes(".")) {
                 alert("Invalid email format");
                 return false;
             }
-        
+
             // Password validation
             if (pwd.length < 6) {
                 alert("Password must be at least 6 characters long.");
                 return false;
             }
-        
+
             // Confirm password validation
             if (pwd !== cpwd) {
                 alert("Password and Confirm password do not match.");
                 return false;
             }
-        
+
             alert("Account created successfully !!");
             window.location.href = "index.html";
             return false;
         }
-        </script>
-        
+    </script>
 
-    
-        
-        
+
+
+
+
 
 </body>
 
